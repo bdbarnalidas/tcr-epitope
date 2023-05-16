@@ -1,0 +1,9 @@
+#import libraries
+import pandas as pd
+import numpy as np
+#read vdjdb data
+vdjdb_df = pd.read_table('vdjdb.tsv')
+#Identify counts of unique values for each gene (TRA = 51973 & TRB = 28962)
+vdjdb_df['Gene'].value_counts()
+#Calculate length of vdjdb [80935]
+len(vdjdb_df)

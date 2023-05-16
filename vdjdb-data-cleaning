@@ -7,3 +7,127 @@ vdjdb_df = pd.read_table('vdjdb.tsv')
 vdjdb_df['Gene'].value_counts()
 #Calculate length of vdjdb [80935]
 len(vdjdb_df)
+
+#Calculate the no. of unqiue CDR3 sequences for TRA and TRB each
+len(pd.unique(vdjdb_df.loc[vdjdb_df['Gene']=='TRA']['CDR3']))
+len(pd.unique(vdjdb_df.loc[vdjdb_df['Gene']=='TRB']['CDR3']))
+#Calculate total number of unique CDR3 sequences
+len(pd.unique(vdjdb_df['CDR3']))
+#Identify common CDR3 amongst TRA and TRB ['CASSSVNEQYF', 'CASSDSRGTEAFF']
+list(set(vdjdb_df.loc[vdjdb_df['Gene']=='TRB'].CDR3) & set(vdjdb_df.loc[vdjdb_df['Gene']=='TRA'].CDR3))
+
+#Extract the Human datapoints into a different dataframe
+vdjdb_human = vdjdb_df.loc[vdjdb_df['Species']=='HomoSapiens']
+#Identify counts of unique values for each gene (TRA = 47107 & TRB = 26804)
+vdjdb_human['Gene'].value_counts()
+#calculate the no. of TRA CDR3 sequences and save them to a csv file (19306)
+len(pd.unique(vdjdb_human.loc[vdjdb_human['Gene']=='TRA']['CDR3']))
+unqhumanTRA = pd.unique(vdjdb_human.loc[vdjdb_human['Gene']=='TRA']['CDR3'])
+df = pd.DataFrame(unqhumanTRA)
+df.to_csv(r'E:\Microsoft VS Code\unqhumanTRA.csv',  index=False, header=True)
+#calculate the no. of TRB CDR3 sequences and save them to a csv file (36693)
+len(pd.unique(vdjdb_human.loc[vdjdb_human['Gene']=='TRB']['CDR3']))
+unqhumanTRB = pd.unique(vdjdb_human.loc[vdjdb_human['Gene']=='TRB']['CDR3'])
+df1 = pd.DataFrame(unqhumanTRB)
+df1.to_csv(r'E:\Microsoft VS Code\unqhumanTRB.csv',  index=False, header=True)
+#Calculate common CDR3 between human TRA and TRB ['CASSSVNEQYF', 'CASSDSRGTEAFF']
+list(set(vdjdb_human.loc[vdjdb_human['Gene']=='TRB'].CDR3) & set(vdjdb_human.loc[vdjdb_human['Gene']=='TRA'].CDR3))
+
+#Extract the mouse datapoints into a different dataframe
+vdjdb_mouse = vdjdb_df.loc[vdjdb_df['Species']=='MusMusculus']
+#calculate length of the new dataframe (5042)
+len(vdjdb_mouse)
+#Identify counts of unique CDR3 for each gene (TRA = 2884 & TRB = 2158)
+vdjdb_mouse['Gene'].value_counts()
+#calculate the no. of TRA CDR3 mouse sequences and save them to a csv file (1257)
+len(pd.unique(vdjdb_mouse.loc[vdjdb_mouse['Gene']=='TRA']['CDR3']))
+unqmouseTRA = pd.unique(vdjdb_mouse.loc[vdjdb_mouse['Gene']=='TRA']['CDR3'])
+df2 = pd.DataFrame(unqmouseTRA)
+df2.to_csv(r'E:\Microsoft VS Code\unqmouseTRA.csv',  index=False, header=True)
+#calculate the no. of TRB CDR3 mouse sequences and save them to a csv file (1810)
+len(pd.unique(vdjdb_mouse.loc[vdjdb_mouse['Gene']=='TRB']['CDR3']))
+unqmouseTRB = pd.unique(vdjdb_mouse.loc[vdjdb_mouse['Gene']=='TRB']['CDR3'])
+df3 = pd.DataFrame(unqmouseTRB)
+df3.to_csv(r'E:\Microsoft VS Code\unqmouseTRB.csv',  index=False, header=True)
+#calculate unique CDR3 sequences in mouse (3067)
+len(pd.unique(vdjdb_mouse['CDR3']))
+
+#Extract the monkey datapoints into a different dataframe
+vdjdb_mon = vdjdb_df.loc[vdjdb_df['Species']=='MacacaMulatta']
+#calculate length of the new dataframe (1982)
+len(vdjdb_mon)
+#Identify counts of unique CDR3 for each gene (TRA = 0 & TRB = 1982)
+vdjdb_mon['Gene'].value_counts()
+#calculate the no. of TRA CDR3 monkey sequences and save them to a csv file (0)
+len(pd.unique(vdjdb_mon.loc[vdjdb_mon['Gene']=='TRA']['CDR3']))
+unqmonTRA = pd.unique(vdjdb_mon.loc[vdjdb_mon['Gene']=='TRA']['CDR3'])
+df4 = pd.DataFrame(unqmonTRA)
+df4.to_csv(r'E:\Microsoft VS Code\unqmonTRA.csv',  index=False, header=True)
+#calculate the no. of TRB CDR3 monkey sequences and save them to a csv file (1194)
+len(pd.unique(vdjdb_mon.loc[vdjdb_mon['Gene']=='TRB']['CDR3']))
+unqmonTRB = pd.unique(vdjdb_mon.loc[vdjdb_mon['Gene']=='TRB']['CDR3'])
+df5 = pd.DataFrame(unqmonTRB)
+df5.to_csv(r'E:\Microsoft VS Code\unqmonTRB.csv',  index=False, header=True)
+#calculate unique CDR3 sequences in monkey (1194)
+len(pd.unique(vdjdb_mon['CDR3']))
+
+#identify common CDR3 sequences between human, mouse and moneky (0)
+list(set(vdjdb_human.CDR3) & set(vdjdb_mouse.CDR3) & set(vdjdb_mon.CDR3))
+#identify common CDR3 sequences between human and mouse, save it to a file (41) 
+#no other combination has common CDR3 sequences
+len(list(set(vdjdb_human.CDR3) & set(vdjdb_mouse.CDR3)))
+df6 = list(set(vdjdb_human.CDR3) & set(vdjdb_mouse.CDR3))
+df6 = pd.DataFrame(df6)
+df6.to_csv(r'E:\Microsoft VS Code\common_CDR3_human_mouse.csv',  index=False, header=True)
+#identify unqiue epitopes in the complete datasets (1139)
+len(pd.unique(vdjdb_df['Epitope']))
+#identify unqiue epitopes in the human df and same them to a csv file(1077)
+len(pd.unique(vdjdb_human['Epitope']))
+unqhumanepi = pd.unique(vdjdb_human['Epitope'])
+df7 = pd.DataFrame(unqhumanepi)
+df7.to_csv(r'E:\Microsoft VS Code\unqhumanepi.csv',  index=False, header=True)
+
+# identify unqiue epitopes in the mouse df and same them to a csv file (62)
+len(pd.unique(vdjdb_mouse['Epitope']))
+unqmouseepi = pd.unique(vdjdb_mouse['Epitope'])
+df8 = pd.DataFrame(unqmouseepi)
+df8.to_csv(r'E:\Microsoft VS Code\unqmouseepi.csv',  index=False, header=True)
+# identify unqiue epitopes in the monkey df and same them to a csv file (3)
+len(pd.unique(vdjdb_mon['Epitope']))
+unqmonepi = pd.unique(vdjdb_mon['Epitope'])
+df9 = pd.DataFrame(unqmonepi)
+df9.to_csv(r'E:\Microsoft VS Code\unqmonepi.csv',  index=False, header=True)
+#identify common epitopes between human and mouse ['VVGAVGVGK', 'VVVGAVGVGK', 'VVVGADGVGK']
+#no other combination has common epitopes
+list(set(vdjdb_human.Epitope) & set(vdjdb_mouse.Epitope))
+
+#Identify number of unique CDR3-epitope pairs in all 4 databases (all=65639, human=61173 , monkey=1245 , mouse=3221)
+vdjdb_df[['CDR3', 'Epitope']].value_counts().reset_index(name='count')
+vdjdb_human[['CDR3', 'Epitope']].value_counts().reset_index(name='count')
+vdjdb_mon[['CDR3', 'Epitope']].value_counts().reset_index(name='count')
+vdjdb_mouse[['CDR3', 'Epitope']].value_counts().reset_index(name='count')
+
+#Calculate the no. of unique CDR3-epitope pairs and same it to a variable (66435)
+total_unique_2 = vdjdb_df[['CDR3', 'Epitope']].value_counts().reset_index(name='count')
+#calculate the no. of CDR-epitope pairs having unque scores (65639)
+total_unique_3 = vdjdb_df[['CDR3', 'Epitope', 'Score']].value_counts().reset_index(name='count')
+#Calculate the no. of pairs having scores 0(59442),1(4443),2(1471),3(1079)
+total_unique_3['Score'].value_counts()
+#Create a column representing TCR-epitope pair
+vdjdb_df['TCRepitope'] = vdjdb_df['CDR3']+' - '+ vdjdb_df['Epitope']
+#divide the complete dataset on the basis of scores
+vdjdb_sc0 = vdjdb_df.loc[vdjdb_df['Score']== 0 ]
+vdjdb_sc1 = vdjdb_df.loc[vdjdb_df['Score']== 1 ]
+vdjdb_sc2 = vdjdb_df.loc[vdjdb_df['Score']== 2 ]
+vdjdb_sc3 = vdjdb_df.loc[vdjdb_df['Score']== 3 ]
+
+#Identify pairs having more than 1 score
+len(list(set(vdjdb_sc0.TCRepitope) & set(vdjdb_sc1.TCRepitope))) #570
+len(list(set(vdjdb_sc0.TCRepitope) & set(vdjdb_sc2.TCRepitope))) #102
+len(list(set(vdjdb_sc0.TCRepitope) & set(vdjdb_sc3.TCRepitope))) #60
+len(list(set(vdjdb_sc1.TCRepitope) & set(vdjdb_sc2.TCRepitope))) #42
+len(list(set(vdjdb_sc2.TCRepitope) & set(vdjdb_sc3.TCRepitope))) #38
+len(list(set(vdjdb_sc1.TCRepitope) & set(vdjdb_sc3.TCRepitope))) #64
+
+
+

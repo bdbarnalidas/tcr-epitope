@@ -129,5 +129,10 @@ len(list(set(vdjdb_sc1.TCRepitope) & set(vdjdb_sc2.TCRepitope))) #42
 len(list(set(vdjdb_sc2.TCRepitope) & set(vdjdb_sc3.TCRepitope))) #38
 len(list(set(vdjdb_sc1.TCRepitope) & set(vdjdb_sc3.TCRepitope))) #64
 
+vdjdb_TRA_pairs = vdjdb_df.loc[vdjdb_df['Gene']=='TRA'][['CDR3','Epitope','Score']]
+vdjdb_TRB_pairs = vdjdb_df.loc[vdjdb_df['Gene']=='TRB'][['CDR3','Epitope','Score']]
+vdjdb_TRA_pairs.to_csv(r'E:\Microsoft VS Code\vdjdb_TRA_pairs.csv',  index=False, header=True)
+vdjdb_TRB_pairs.to_csv(r'E:\Microsoft VS Code\vdjdb_TRB_pairs.csv',  index=False, header=True)
+
 
 

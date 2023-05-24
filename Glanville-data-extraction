@@ -1,0 +1,18 @@
+#import necessary libraries and the dataset
+import pandas as pd
+import numpy as np
+Glam_df = open('Glan.csv', encoding='windows-1252')
+Glam_df = pd.read_csv(Glam_df)
+
+#check the length of the initial dataset #4607
+len(Glam_df)
+
+#Extract the columns of interest
+Glam_df_subset = Glam_df[['peptide','CDR-H3']]
+
+#drop the rows containing na values
+Glam_df_subset = Glam_df_subset.dropna(subset=['peptide','CDR-H3'])
+
+#drop duplicate pairs and save data to a csv file
+Glam_df_subset = Glam_df_subset.drop_duplicates()
+Glam_df_subset.to_csv(r'E:\Microsoft VS Code\Glamville_207_beta_pairs.csv',  index=False, header=True)
